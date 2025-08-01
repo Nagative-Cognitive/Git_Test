@@ -4,31 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="sdafsa.css" />
   </head>
-
   <body>
-    <form name="myform">
-      <span class="s-text">아이디</span> <input type="text" name="ID" />
-      <br />
-      <span class="s-text">비밀번호</span> <input type="password" name="PW" />
-      <br />
-      <span class="s-text">로그인 유지</span>
-      <input type="checkbox" name="status" value="1" />
-      <br />
-      <span class="s-text">남자</span
-      ><input type="radio" name="gender" value="male" />
-      <span class="s-text">여자</span
-      ><input type="radio" name="gender" value="female" />
-      <br />
-      <select>
-        <option>신규가입</option>
-        <option>재가입</option>
-      </select>
-      <br />
-      <button type="submit">로그인</button>
-
-      <script src="./test.js"></script>
+    <form name="my-form">
+      <input type="text" name="my-id" id="id" />
+      <button id="my-botton" type="button">제출</button>
     </form>
   </body>
 </html>
+
+<script>
+  document.querySelector("#my-botton").addEventListener("click", async () => {
+    const myid = document.querySelector("#id").value;
+
+    await fetch(`/boom/${myid}`);
+  });
+</script>
