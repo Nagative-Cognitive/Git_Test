@@ -3,13 +3,13 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
-  res.send("안녕하세요111");
+  res.send("hello");
 });
 
-router.get("/:abcc", function (req, res, next) {
-  console.log(req.query.a);
+router.get("/:no", function (req, res, next) {
+  console.log("abc");
 
-  res.send("안녕하세요" + req.params.abcc);
+  res.send("hi" + req.params);
 });
 
 module.exports = router;

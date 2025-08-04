@@ -4,19 +4,66 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+
+    <style>
+      table {
+        border-collapse: collapse;
+      }
+
+      table td,
+      table th {
+        border: 1px solid black;
+      }
+    </style>
   </head>
+
   <body>
-    <form name="my-form">
-      <input type="text" name="my-id" id="id" />
-      <button id="my-botton" type="button">제출</button>
+    <table id="boardList">
+      <tr>
+        <th>제목</th>
+        <th>내용</th>
+      </tr>
+    </table>
+
+    <form name="myform">
+      <input type="text" name="title" />
+      <input type="text" name="content" />
+      <button type="button" id="submit">제출하기</button>
     </form>
   </body>
 </html>
 
 <script>
-  document.querySelector("#my-botton").addEventListener("click", async () => {
-    const myid = document.querySelector("#id").value;
+  (async () => {
+    const response = await fetch("/board");
+    const result1 = await response.json();
+    const myTable = document.getElementById("boardList");
 
-    await fetch(`/boom/${myid}`);
+    for (const value of result1.result) {
+      myTable.innerHTML += `<tr>
+        <td>${value.title}</td>
+        <td>${value.content}</td>
+      </tr>`;
+    }
+  })();
+
+  const submitBtn = document.getElementById("submit");
+
+  submitBtn.addEventListener("click", async function () {
+    const title = document.myform.title.value;
+    const content = document.myform.content.value;
+    const bodyData = {
+      title,
+      content,
+    };
+    const response = await fetch("/board", {
+      method: "POST",
+      body: JSON.stringify(bodyData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    console.log(result);
   });
 </script>
